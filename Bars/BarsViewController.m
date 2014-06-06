@@ -8,6 +8,7 @@
 
 #import "BarsViewController.h"
 #import "BarDetailViewController.h"
+#import <StarRatingView.h>
 
 @interface BarsViewController ()
 
@@ -15,7 +16,8 @@
 @property (nonatomic) NSUInteger currentPosition;
 @property (weak, nonatomic) IBOutlet UILabel *nameBarLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addressBarLabel;
-@property (weak, nonatomic) IBOutlet UILabel *ratingBarLabel;
+
+@property (strong, nonatomic) IBOutlet StarRatingView *ratingStarView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageBar;
 
 @end
@@ -36,9 +38,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
-	_barsList = [[Bars alloc]initWithFile:@"barsList"];
+    self.ratingStarView.fullImage = @"ic_starred.png";
+    
+    self.ratingStarView.emptyImage = @"ic_starredept.png";
+    
+	self.barsList = [[Bars alloc]initWithFile:@"barsList"];
 	
+    CGRect frame = CGRectMake(41, 303, 50, 21);
+    
+    self.ratingStarView = [[StarRatingView alloc] initWithFrame:frame rateEnabled:YES];
+    
+    [self.view addSubview:self.ratingStarView];
+    
+    
 	[self showBar:0];
+    
+    
 	
 	
 }
@@ -86,7 +101,6 @@
 		
 	}
 	
-	NSLog(@"%d",newPosition);
 	
 	self.currentPosition = newPosition;
 	
@@ -109,7 +123,6 @@
 		
 	}
 	
-	NSLog(@"%d",newPosition);
 	
 	self.currentPosition = newPosition;
 	
@@ -129,9 +142,11 @@
 	[[self imageBar] setImage:[UIImage imageWithData:data]];
 	
 	
-	_nameBarLabel.text = [list valueForKey:@"name"];
-	_addressBarLabel.text = [list valueForKey:@"address"];
-	_ratingBarLabel.text = [NSString stringWithFormat:@"%@",[list valueForKey:@"rating"]];
+	self.nameBarLabel.text = [list valueForKey:@"name"];
+	self.addressBarLabel.text = [list valueForKey:@"address"];
+    [self.ratingStarView displayRating:[[list valueForKey:@"rating"] floatValue]];
+    [self.view.subviews porLaGloriaMadre];
+	
 	
 }
 

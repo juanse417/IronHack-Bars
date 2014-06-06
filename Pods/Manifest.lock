@@ -1,0 +1,10 @@
+PODS:
+  - StarRatingView (1.0.0)
+
+DEPENDENCIES:
+  - StarRatingView
+
+SPEC CHECKSUMS:
+  StarRatingView: c3e81fe39e1fdd5a11d3bee4ccbf7fadf8491107
+
+COCOAPODS: 0.33.1
